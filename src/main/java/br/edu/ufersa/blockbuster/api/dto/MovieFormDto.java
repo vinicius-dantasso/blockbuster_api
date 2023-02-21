@@ -1,35 +1,18 @@
-package br.edu.ufersa.blockbuster.domain.entity;
+package br.edu.ufersa.blockbuster.api.dto;
 
-import javax.persistence.*;
+import br.edu.ufersa.blockbuster.domain.entity.AdvisoryRating;
+import br.edu.ufersa.blockbuster.domain.entity.Gender;
+
 import java.time.LocalDate;
 import java.util.UUID;
 
-@Entity
-@Table(name = "movie")
-public class Movie {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class MovieFormDto {
     private String title;
     private Long duration;
     private LocalDate releaseDate;
     private Gender gender;
     private AdvisoryRating advisoryRating;
     private String imageUrl;
-    private UUID uuid;
-
-    public Movie() {
-        this.uuid = UUID.randomUUID();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getTitle() {
         return title;
@@ -77,13 +60,5 @@ public class Movie {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
-    }
-
-    public UUID getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
     }
 }
