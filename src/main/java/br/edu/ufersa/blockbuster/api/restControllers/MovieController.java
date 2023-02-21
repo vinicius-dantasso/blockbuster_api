@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -29,7 +30,7 @@ public class MovieController {
     }
 
     @PostMapping
-    public ResponseEntity<MovieDto> create(MovieFormDto dto) {
+    public ResponseEntity<MovieDto> create(@Valid @RequestBody MovieFormDto dto) {
         Movie movie = movieService.create(mapper.map(dto, Movie.class));
 
         if (movie == null) {
