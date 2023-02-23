@@ -2,10 +2,10 @@ package br.edu.ufersa.blockbuster.api.dto;
 
 import br.edu.ufersa.blockbuster.domain.entity.AdvisoryRating;
 import br.edu.ufersa.blockbuster.domain.entity.Gender;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.util.UUID;
 
 public class MovieFormDto {
     @NotNull(message = "O título não pode ser null")
@@ -13,6 +13,7 @@ public class MovieFormDto {
     @NotNull(message = "A duração não pode ser null")
     private Long duration;
     @NotNull(message = "A data de lançamento não pode ser null")
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate releaseDate;
     @NotNull(message = "O gênero não pode ser null")
     private Gender gender;

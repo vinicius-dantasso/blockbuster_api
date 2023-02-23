@@ -1,39 +1,26 @@
-package br.edu.ufersa.blockbuster.domain.entity;
+package br.edu.ufersa.blockbuster.api.dto;
 
-import org.hibernate.annotations.Type;
+import br.edu.ufersa.blockbuster.domain.entity.AdvisoryRating;
+import br.edu.ufersa.blockbuster.domain.entity.Gender;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
-import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.util.UUID;
 
-@Entity
-@Table(name = "movie")
-public class Movie {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class UpdateMovieDto {
+    @NotNull(message = "O título não pode ser null")
     private String title;
+    @NotNull(message = "A duração não pode ser null")
     private Long duration;
+    @NotNull(message = "A data de lançamento não pode ser null")
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate releaseDate;
+    @NotNull(message = "O gênero não pode ser null")
     private Gender gender;
+    @NotNull(message = "A classificação indicativa não pode ser null")
     private AdvisoryRating advisoryRating;
+    @NotNull(message = "A URL da imagem não pode ser null")
     private String imageUrl;
-    @Column(updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
-    @Type(type = "uuid-char")
-    private UUID uuid;
-
-    public Movie() {
-        this.uuid = UUID.randomUUID();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getTitle() {
         return title;
@@ -81,13 +68,5 @@ public class Movie {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
-    }
-
-    public UUID getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
     }
 }

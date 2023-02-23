@@ -2,6 +2,7 @@ package br.edu.ufersa.blockbuster.api.restControllers;
 
 import br.edu.ufersa.blockbuster.api.dto.MovieDto;
 import br.edu.ufersa.blockbuster.api.dto.MovieFormDto;
+import br.edu.ufersa.blockbuster.api.dto.UpdateMovieDto;
 import br.edu.ufersa.blockbuster.domain.entity.Movie;
 import br.edu.ufersa.blockbuster.domain.service.MovieService;
 import org.modelmapper.ModelMapper;
@@ -55,18 +56,36 @@ public class MovieController {
     @GetMapping("/{id}")
     public ResponseEntity<MovieDto> getById(@PathVariable UUID id) {
         Movie movie = movieService.getById(id);
-        MovieDto dto = mapper.map(movie, MovieDto.class);
 
-        if (dto == null) {
+        if (movie == null) {
             return ResponseEntity.notFound().build();
         }
 
+        MovieDto dto = mapper.map(movie, MovieDto.class);
+
         return ResponseEntity.ok(dto);
+    }
+
+    @PutMapping
+    public ResponseEntity<MovieDto> update(@RequestBody UpdateMovieDto dto) {
+        Movie movie = movieService.update(mapper.map(dto, Movie.class));
+        MovieDto updated = mapper.map(movie, MovieDto.class);
+
+        if (updated == null) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return ResponseEntity.ok(updated);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
         Movie movie = movieService.getById(id);
+
+        if (movie == null) {
+            return ResponseEntity.ok().build();
+        }
+
         movieService.delete(movie);
         return ResponseEntity.ok().build();
     }

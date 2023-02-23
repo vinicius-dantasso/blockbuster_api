@@ -12,6 +12,10 @@ public class MovieService {
 
     private MovieRepository repository;
 
+    public MovieService(MovieRepository repository) {
+        this.repository = repository;
+    }
+
     public Movie create(Movie movie) {
         return repository.save(movie);
     }
@@ -22,6 +26,12 @@ public class MovieService {
 
     public Movie getById(UUID id) {
         return repository.findByUuid(id);
+    }
+
+    public Movie update(Movie movie) {
+        Movie savedMovie = repository.findByUuid(movie.getUuid());
+        movie.setId(savedMovie.getId());
+        return repository.save(movie);
     }
 
     public void delete(Movie movie) {
