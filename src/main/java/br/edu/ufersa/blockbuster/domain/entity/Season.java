@@ -1,40 +1,22 @@
 package br.edu.ufersa.blockbuster.domain.entity;
 
+import java.time.LocalDate;
 import java.util.List;
-import java.util.UUID;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
-import org.hibernate.annotations.Type;
 
-@Entity
-@Table(name = "serie")
 public class Season {
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
-  @Type(type = "uuid-char")
-  private UUID uuid;
+
   @NotBlank(message = "Label not null")
   private Integer label;
   private List<Episode> episodes;
+  private LocalDate releaseDate;
 
-  public Long getId() {
-    return id;
+  public LocalDate getReleaseDate() {
+    return releaseDate;
   }
-  public void setId(Long id) {
-    this.id = id;
-  }
-  public UUID getUuid() {
-    return uuid;
-  }
-  public void setUuid(UUID uuid) {
-    this.uuid = uuid;
+  public void setReleaseDate(LocalDate releaseDate) {
+    this.releaseDate = releaseDate;
   }
   public Integer getLabel() {
     return label;
