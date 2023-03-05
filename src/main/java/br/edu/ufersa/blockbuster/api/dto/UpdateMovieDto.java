@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.UUID;
 
 public class UpdateMovieDto {
     @NotNull(message = "O título não pode ser null")
@@ -21,9 +22,10 @@ public class UpdateMovieDto {
     private AdvisoryRating advisoryRating;
     @NotNull(message = "A URL da imagem não pode ser null")
     private String imageUrl;
+    private UUID uuid;
 
     public String getTitle() {
-        return title;
+        return this.title;
     }
 
     public void setTitle(String title) {
@@ -31,7 +33,7 @@ public class UpdateMovieDto {
     }
 
     public Long getDuration() {
-        return duration;
+        return this.duration;
     }
 
     public void setDuration(Long duration) {
@@ -39,7 +41,7 @@ public class UpdateMovieDto {
     }
 
     public LocalDate getReleaseDate() {
-        return releaseDate;
+        return this.releaseDate;
     }
 
     public void setReleaseDate(LocalDate releaseDate) {
@@ -47,7 +49,7 @@ public class UpdateMovieDto {
     }
 
     public Gender getGender() {
-        return gender;
+        return this.gender;
     }
 
     public void setGender(Gender gender) {
@@ -55,7 +57,7 @@ public class UpdateMovieDto {
     }
 
     public AdvisoryRating getAdvisoryRating() {
-        return advisoryRating;
+        return this.advisoryRating;
     }
 
     public void setAdvisoryRating(AdvisoryRating advisoryRating) {
@@ -63,10 +65,19 @@ public class UpdateMovieDto {
     }
 
     public String getImageUrl() {
-        return imageUrl;
+        return this.imageUrl;
     }
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
+
+    public UUID getUuid() {
+        return this.uuid;
+    }
+
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
+    }
+    
 }

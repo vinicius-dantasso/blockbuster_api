@@ -5,7 +5,9 @@ import br.edu.ufersa.blockbuster.api.dto.MovieFormDto;
 import br.edu.ufersa.blockbuster.api.dto.UpdateMovieDto;
 import br.edu.ufersa.blockbuster.domain.entity.Movie;
 import br.edu.ufersa.blockbuster.domain.service.MovieService;
+
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,75 +20,55 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/movies")
 public class MovieController {
-
-    private ModelMapper mapper;
-    private MovieService movieService;
-
-    public MovieController(
-            ModelMapper mapper,
-            MovieService movieService
-    ) {
-        this.mapper = mapper;
-        this.movieService = movieService;
-    }
-
-    @PostMapping
-    public ResponseEntity<MovieDto> create(@Valid @RequestBody MovieFormDto dto) {
-        Movie movie = movieService.create(mapper.map(dto, Movie.class));
-
-        if (movie == null) {
-            return ResponseEntity.internalServerError().build();
-        }
-
-        MovieDto created = mapper.map(movie, MovieDto.class);
-        return new ResponseEntity<>(created, HttpStatus.CREATED);
-    }
+    @Autowired
+	private ModelMapper mapper;
+	@Autowired
+	private MovieService service;
 
     @GetMapping
-    public ResponseEntity<List<MovieDto>> list() {
-        List<MovieDto> movies = new ArrayList<>();
+	public List<MovieDto> listar(){
+		List<MovieDto> users = new ArrayList<MovieDto>();
+		for(Movie movie: service.getAll()) {
+			users.add(mapper.map(movie, MovieDto.class));
+		}
+		return users;
+	}
+	
+	@GetMapping ("/{movieId}")
+	public ResponseEntity<MovieDto> buscar(@PathVariable UUID movieId){
+		MovieDto dto = mapper.map(service.getByUuid(movieId), MovieDto.class);
+		if(dto != null) {
+			return new ResponseEntity<>(dto, HttpStatus.OK);
+		}
+		return ResponseEntity.notFound().build();
+	}
+	
+	@PostMapping
+	public ResponseEntity<MovieDto> criar(@Valid @RequestBody MovieFormDto dto){
+		Movie movie = service.createMovie(mapper.map(dto, Movie.class));
+		MovieDto criado = mapper.map(movie, MovieDto.class);
+		if(criado!=null) {
+            return new ResponseEntity<>(criado,HttpStatus.CREATED);
+		}
+        return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+	}
 
-        for (Movie movie : movieService.getAll()) {
-            movies.add(mapper.map(movie, MovieDto.class));
-        }
+	@PutMapping
+	public ResponseEntity<MovieDto> alterar(@Valid @RequestBody UpdateMovieDto dto){
+		Movie movie = service.updateMovie(mapper.map(dto,Movie.class));
+		MovieDto atualizado = mapper.map(movie, MovieDto.class);
+		if(atualizado!=null) {
+			return new ResponseEntity<>(atualizado,HttpStatus.OK);
+		}
+		return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+	}
 
-        return ResponseEntity.ok(movies);
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<MovieDto> getById(@PathVariable UUID id) {
-        Movie movie = movieService.getById(id);
-
-        if (movie == null) {
-            return ResponseEntity.notFound().build();
-        }
-
-        MovieDto dto = mapper.map(movie, MovieDto.class);
-
-        return ResponseEntity.ok(dto);
-    }
-
-    @PutMapping
-    public ResponseEntity<MovieDto> update(@RequestBody UpdateMovieDto dto) {
-        Movie movie = movieService.update(mapper.map(dto, Movie.class));
-        MovieDto updated = mapper.map(movie, MovieDto.class);
-
-        if (updated == null) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-        return ResponseEntity.ok(updated);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable UUID id) {
-        Movie movie = movieService.getById(id);
-
-        if (movie == null) {
-            return ResponseEntity.ok().build();
-        }
-
-        movieService.delete(movie);
-        return ResponseEntity.ok().build();
-    }
+    @DeleteMapping("/{userId}")
+	public ResponseEntity<UUID> deletar(@PathVariable UUID userId){
+		String teste = service.deleteMovie(userId);
+		if(teste.equals("ok")) {
+			return new ResponseEntity<>(userId,HttpStatus.OK);
+		}
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	}
 }

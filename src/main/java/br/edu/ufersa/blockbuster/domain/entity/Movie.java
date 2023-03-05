@@ -13,22 +13,24 @@ public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(unique=true,nullable=false)
     private String title;
+    @Column(nullable=false)
     private Long duration;
+    @Column(nullable=false)
     private LocalDate releaseDate;
+    @Column(nullable=false)
     private Gender gender;
+    @Column(nullable=false)
     private AdvisoryRating advisoryRating;
+    @Column(nullable=false)
     private String imageUrl;
     @Column(updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
     @Type(type = "uuid-char")
     private UUID uuid;
 
-    public Movie() {
-        this.uuid = UUID.randomUUID();
-    }
-
     public Long getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(Long id) {
@@ -36,7 +38,7 @@ public class Movie {
     }
 
     public String getTitle() {
-        return title;
+        return this.title;
     }
 
     public void setTitle(String title) {
@@ -44,7 +46,7 @@ public class Movie {
     }
 
     public Long getDuration() {
-        return duration;
+        return this.duration;
     }
 
     public void setDuration(Long duration) {
@@ -52,7 +54,7 @@ public class Movie {
     }
 
     public LocalDate getReleaseDate() {
-        return releaseDate;
+        return this.releaseDate;
     }
 
     public void setReleaseDate(LocalDate releaseDate) {
@@ -60,7 +62,7 @@ public class Movie {
     }
 
     public Gender getGender() {
-        return gender;
+        return this.gender;
     }
 
     public void setGender(Gender gender) {
@@ -68,7 +70,7 @@ public class Movie {
     }
 
     public AdvisoryRating getAdvisoryRating() {
-        return advisoryRating;
+        return this.advisoryRating;
     }
 
     public void setAdvisoryRating(AdvisoryRating advisoryRating) {
@@ -76,7 +78,7 @@ public class Movie {
     }
 
     public String getImageUrl() {
-        return imageUrl;
+        return this.imageUrl;
     }
 
     public void setImageUrl(String imageUrl) {
@@ -84,10 +86,11 @@ public class Movie {
     }
 
     public UUID getUuid() {
-        return uuid;
+        return this.uuid;
     }
 
     public void setUuid(UUID uuid) {
         this.uuid = uuid;
     }
+
 }
