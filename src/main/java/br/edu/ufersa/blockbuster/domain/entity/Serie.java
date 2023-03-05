@@ -27,6 +27,7 @@ public class Serie {
   private UUID uuid;
 
   @NotBlank(message = "Title not null")
+  @Column(nullable = true)
   private String title;
   @Size(min = 0, message = "Duration not 00.00")
   private Long duration;
