@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -40,6 +41,7 @@ public class Serie {
   private AdvisoryRating advisoryRating;
 
   private String imageUrl;
+  @ElementCollection
   private List<Season> seasons;
 
   public long getId() {
