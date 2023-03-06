@@ -11,11 +11,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.Type;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "serie")
@@ -28,21 +32,20 @@ public class Serie {
   @Type(type = "uuid-char")
   private UUID uuid;
 
-  @NotBlank(message = "Title not null")
   @Column(nullable = true)
   private String title;
-  @Size(min = 0, message = "Duration not 00.00")
-  private Long duration;
-  @NotBlank(message = "Release Date not null")
+  @JsonFormat(pattern = "dd/MM/yyyy")
   private LocalDate releaseDate;
-  @NotBlank(message = "Gender not null")
+
+  @Column(nullable = false)
   private Gender gender;
 
-  @NotBlank(message = "Advisory Rating not null")
+  @Column(nullable = false)
   private AdvisoryRating advisoryRating;
 
   private String imageUrl;
-  @Embedded
+  @ManyToMany
+  @JoinColumn(nullable = false, name = "serie_season")
   private List<Season> seasons;
 
   public long getId() {

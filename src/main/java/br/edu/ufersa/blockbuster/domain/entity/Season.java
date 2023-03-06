@@ -3,29 +3,54 @@ package br.edu.ufersa.blockbuster.domain.entity;
 import java.time.LocalDate;
 import java.util.List;
 
-import javax.persistence.Embeddable;
-import javax.persistence.Embedded;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
-@Embeddable
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+@Entity
+@Table(name = "season")
 public class Season {
 
-  private Integer label;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-  @Embedded
+  @Column(nullable = false)
+  private int seasonNumber;
+  @ManyToMany
+  @JoinColumn(nullable = false, name = "season_episode")
   private List<Episode> episodes;
+  @Column(nullable = false)
+  @JsonFormat(pattern = "dd/MM/yyyy")
   private LocalDate releaseDate;
+
+
+  public Long getId() {
+    return id;
+  }
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  public int getSeasonNumber() {
+    return seasonNumber;
+  }
+  public void setSeasonNumber(int seasonNumber) {
+    this.seasonNumber = seasonNumber;
+  }
 
   public LocalDate getReleaseDate() {
     return releaseDate;
   }
   public void setReleaseDate(LocalDate releaseDate) {
     this.releaseDate = releaseDate;
-  }
-  public Integer getLabel() {
-    return label;
-  }
-  public void setLabel(Integer label) {
-    this.label = label;
   }
   public List<Episode> getEpisodes() {
     return episodes;

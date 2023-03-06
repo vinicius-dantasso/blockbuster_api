@@ -1,21 +1,43 @@
 package br.edu.ufersa.blockbuster.domain.entity;
 
-import java.time.LocalDate;
-
-import javax.persistence.Embeddable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
-@Embeddable
+@Entity
+@Table(name = "episode")
 public class Episode {
 
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+ 
   @NotBlank(message = "Title not null")
+  @Column(nullable = false)
   private String title;
   @NotBlank(message = "Duration not null")
+  @Column(nullable = false)
   private Long duration;
-  private LocalDate releaseDate;
+  @Column(nullable = false)
+  private int episodeNumber;
   
-  private String imageUrl;
+  public Long getId() {
+    return id;
+  }
+  public void setId(Long id) {
+    this.id = id;
+  }
 
+  public int getEpisodeNumber() {
+    return episodeNumber;
+  }
+  public void setEpisodeNumber(int episodeNumber) {
+    this.episodeNumber = episodeNumber;
+  }
   public String getTitle() {
     return title;
   }
@@ -28,16 +50,5 @@ public class Episode {
   public void setDuration(Long duration) {
     this.duration = duration;
   }
-  public LocalDate getReleaseDate() {
-    return releaseDate;
-  }
-  public void setReleaseDate(LocalDate releaseDate) {
-    this.releaseDate = releaseDate;
-  }
-  public String getImageUrl() {
-    return imageUrl;
-  }
-  public void setImageUrl(String imageUrl) {
-    this.imageUrl = imageUrl;
-  }
+
 }
