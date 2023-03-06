@@ -2,18 +2,11 @@ package br.edu.ufersa.blockbuster.domain.entity;
 
 import java.time.LocalDate;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.Embeddable;
 import javax.validation.constraints.NotBlank;
 
-@Entity
+@Embeddable
 public class Episode {
-
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
 
   @NotBlank(message = "Title not null")
   private String title;
@@ -22,13 +15,6 @@ public class Episode {
   private LocalDate releaseDate;
   
   private String imageUrl;
-
-  public Long getId() {
-    return id;
-  }
-  public void setId(Long id) {
-    this.id = id;
-  }
 
   public String getTitle() {
     return title;
