@@ -2,10 +2,14 @@ package br.edu.ufersa.blockbuster.domain.service;
 
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import static java.util.Collections.emptyList;
 
 public class AuthenticationService {
   static final long EXPIRATIONTIME = 864_000_00;
@@ -20,5 +24,23 @@ public class AuthenticationService {
 
     res.addHeader("Authorization", PREFIX + " " + jwtToken);
     res.addHeader("Access-Control-Expose-Headers", "Authorization");
+  }
+
+  static public Authentication getAuthentication(HttpServletRequest request) {
+    String token = request.getHeader("Authorization");
+
+    if (token != null) {
+      String email = Jwts.parser() 
+        .setSigningKey(SIGNINGKEY)
+        .parseClaimsJws(token.replace(PREFIX, ""))
+        .getBody()
+        .getSubject();
+
+      if (email != null) {
+        return new UsernamePasswordAuthenticationToken(email, null, emptyList());
+      }
+    }
+
+    return null;
   }
 }
