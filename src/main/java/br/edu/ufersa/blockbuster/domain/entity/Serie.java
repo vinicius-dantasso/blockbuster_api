@@ -4,18 +4,16 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.Type;
 
@@ -28,6 +26,7 @@ public class Serie {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
+  
   @Column(updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
   @Type(type = "uuid-char")
   private UUID uuid;
@@ -37,15 +36,18 @@ public class Serie {
   @JsonFormat(pattern = "dd/MM/yyyy")
   private LocalDate releaseDate;
 
+  @Enumerated(EnumType.STRING)
   @Column(nullable = false)
   private Gender gender;
 
+  @Enumerated(EnumType.STRING)
   @Column(nullable = false)
   private AdvisoryRating advisoryRating;
 
+  @Column(nullable = false)
   private String imageUrl;
-  @ManyToMany
-  @JoinColumn(nullable = false, name = "serie_season")
+
+  @OneToMany(mappedBy = "serie", cascade = CascadeType.ALL)
   private List<Season> seasons;
 
   public long getId() {
@@ -65,12 +67,6 @@ public class Serie {
   }
   public void setTitle(String title) {
     this.title = title;
-  }
-  public long getDuration() {
-    return duration;
-  }
-  public void setDuration(long duration) {
-    this.duration = duration;
   }
   public LocalDate getReleaseDate() {
     return releaseDate;
