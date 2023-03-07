@@ -5,25 +5,30 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
 
 @Entity
-@Table(name = "episode")
+@Table(name = "episodes")
 public class Episode {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
  
-  @NotBlank(message = "Title not null")
   @Column(nullable = false)
   private String title;
-  @NotBlank(message = "Duration not null")
+
   @Column(nullable = false)
-  private Long duration;
+  private int duration;
+  
   @Column(nullable = false)
   private int episodeNumber;
+
+  @ManyToOne
+  @JoinColumn(name = "season_id", referencedColumnName = "id")
+  private Season season;
   
   public Long getId() {
     return id;
@@ -44,11 +49,19 @@ public class Episode {
   public void setTitle(String title) {
     this.title = title;
   }
-  public Long getDuration() {
+  public int getDuration() {
     return duration;
   }
-  public void setDuration(Long duration) {
+  public void setDuration(int duration) {
     this.duration = duration;
+  }
+
+  public Season getSeason() {
+    return this.season;
+  }
+
+  public void setSeason(Season season) {
+    this.season = season;
   }
 
 }

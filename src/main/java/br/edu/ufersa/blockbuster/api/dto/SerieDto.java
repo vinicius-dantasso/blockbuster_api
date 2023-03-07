@@ -6,17 +6,24 @@ import java.util.UUID;
 
 import br.edu.ufersa.blockbuster.domain.entity.AdvisoryRating;
 import br.edu.ufersa.blockbuster.domain.entity.Gender;
-import br.edu.ufersa.blockbuster.domain.entity.Season;
 
 public class SerieDto {
-  private String title;
-    private Long duration;
+    private Long id;
+    private String title;
     private LocalDate releaseDate;
     private Gender gender;
     private AdvisoryRating advisoryRating;
     private String imageUrl;
-    private List<Season> seasons;
+    private List<SeasonDto> seasons;
     private UUID uuid;
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;
@@ -24,14 +31,6 @@ public class SerieDto {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public Long getDuration() {
-        return duration;
-    }
-
-    public void setDuration(Long duration) {
-        this.duration = duration;
     }
 
     public LocalDate getReleaseDate() {
@@ -66,14 +65,6 @@ public class SerieDto {
         this.imageUrl = imageUrl;
     }
 
-    public List<Season> getSeasons() {
-        return seasons;
-    }
-
-    public void setSeasons(List<Season> seasons) {
-        this.seasons = seasons;
-    }
-
     public UUID getUuid() {
         return uuid;
     }
@@ -81,4 +72,13 @@ public class SerieDto {
     public void setUuid(UUID uuid) {
         this.uuid = uuid;
     }
+
+    public List<SeasonDto> getSeasons() {
+        return this.seasons;
+    }
+
+    public void setSeasons(List<SeasonDto> seasons) {
+        this.seasons = seasons;
+    }
+
 }

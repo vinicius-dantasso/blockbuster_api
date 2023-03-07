@@ -12,6 +12,8 @@ import br.edu.ufersa.blockbuster.domain.entity.Gender;
 import br.edu.ufersa.blockbuster.domain.entity.Season;
 
 public class SerieFormDto {
+    @NotNull
+    private Long id;
     @NotNull(message = "O título não pode ser null")
     private String title;
     @NotNull(message = "A data de lançamento não pode ser null")
@@ -23,7 +25,16 @@ public class SerieFormDto {
     private AdvisoryRating advisoryRating;
     @NotNull(message = "A URL da imagem não pode ser null")
     private String imageUrl;
+    @NotNull(message = "A serie deve ter pelo menos 1 season")
     private List<Season> seasons;
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;
