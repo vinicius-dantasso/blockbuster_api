@@ -17,12 +17,12 @@ public class AuthenticationService {
   static final String PREFIX = "Bearer";
 
   static public void addToken(HttpServletResponse res, String email) {
-    String jwtToken = Jwts.builder().setSubject(email)
+    String JwtToken = Jwts.builder().setSubject(email)
       .setExpiration(new Date(System.currentTimeMillis() + EXPIRATIONTIME))
       .signWith(SignatureAlgorithm.HS512, SIGNINGKEY)
       .compact();
 
-    res.addHeader("Authorization", PREFIX + " " + jwtToken);
+    res.addHeader("Authorization", PREFIX + " " + JwtToken);
     res.addHeader("Access-Control-Expose-Headers", "Authorization");
   }
 
