@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import br.edu.ufersa.blockbuster.domain.entity.Serie;
 import br.edu.ufersa.blockbuster.domain.entity.Gender;
 import br.edu.ufersa.blockbuster.domain.entity.Season;
-import br.edu.ufersa.blockbuster.domain.entity.AdvisoryRating;
 import br.edu.ufersa.blockbuster.domain.entity.Episode;
 import br.edu.ufersa.blockbuster.domain.repoitory.SerieRepository;
 
@@ -24,6 +23,7 @@ public class SerieService {
   private EpisodeService episodeService;
 
   public Serie create(Serie serie) {
+
     serie.setUuid(UUID.randomUUID());
     serie = serieRepository.save(serie);
 
@@ -39,6 +39,7 @@ public class SerieService {
     }
 
     return serie;
+
   }
 
   public List<Serie> getAll() {
@@ -57,17 +58,40 @@ public class SerieService {
     return this.serieRepository.findByGender(gender);
   }
 
-  public List<Serie> getByAdvisoryRating(AdvisoryRating advisoryRating) {
-    return this.serieRepository.findByAdvisoryRating(advisoryRating);
-  }
-
   public Serie update(Serie serie) {
-    Serie savedSerie = this.serieRepository.findByUuid(serie.getUuid());
-    savedSerie.setSeasons(serie.getSeasons());
-    return this.serieRepository.save(savedSerie);
+    //Série salva no banco de dados
+    Serie savedSerie = serieRepository.findByUuid(serie.getUuid());
+
+    //Lista das novas temporadas que serão adicionadas
+    List<Season> newSeasons = serie.getSeasons();
+    for(int i=0;i<newSeasons.size();i++){
+      newSeasons.get(i).setSerie(savedSerie);
+
+      //Lista dos novos episódios das novas, respectivas, temporadas
+      List<Episode> newEpisodes = newSeasons.get(i).getEpisodes();
+      for(int j=0;j<newEpisodes.size();j++){
+        newEpisodes.get(j).setSeason(newSeasons.get(i));
+      }
+    }
+
+    //Adição da nova lista à antiga
+    List<Season> updatedSeasons = savedSerie.getSeasons();
+    updatedSeasons.addAll(newSeasons);
+
+    savedSerie.setSeasons(updatedSeasons);
+    serieRepository.save(savedSerie);
+    return savedSerie;
   }
 
-  public void delete(Serie serie) {
-    this.serieRepository.delete(serie);
+  public String delete(UUID uuid) {
+    Serie serie = serieRepository.findByUuid(uuid);
+
+    if(serie!=null){
+      seasonService.delete(serie);
+      serieRepository.delete(serie);
+      return "ok";
+    }
+    return "Serie not found";
   }
+
 }
