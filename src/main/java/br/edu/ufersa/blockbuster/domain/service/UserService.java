@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.edu.ufersa.blockbuster.domain.entity.User;
@@ -13,6 +14,8 @@ import br.edu.ufersa.blockbuster.domain.repoitory.UserRepository;
 public class UserService {
     @Autowired
 	private UserRepository rep;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	public List<User> getAll(){
 		List<User> users = rep.findAll();
@@ -26,6 +29,7 @@ public class UserService {
 	
 	public User createUser(User user) {
 		user.setUuid(UUID.randomUUID());
+		user.setSenha(passwordEncoder.encode(user.getSenha()));
 		rep.save(user);
 		return user;
 	}

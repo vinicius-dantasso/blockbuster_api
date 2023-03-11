@@ -58,7 +58,7 @@ public class SerieController {
     return seriesDto;
   }
 
-  @GetMapping("/{id}")
+  @GetMapping("/get_By_Id/{id}")
   public ResponseEntity<SerieDto> search(@PathVariable UUID id) {
     SerieDto dto = this.mapper.map(this.serieService.getByUuid(id), SerieDto.class);
 
@@ -69,7 +69,7 @@ public class SerieController {
     return ResponseEntity.notFound().build();
   }
 
-  @GetMapping("/{title}")
+  @GetMapping("/get_By_Title/{title}")
   public ResponseEntity<SerieDto> search(@PathVariable String title) {
     SerieDto dto = this.mapper.map(this.serieService.getByTitle(title), SerieDto.class);
 
