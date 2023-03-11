@@ -27,7 +27,11 @@ public class Movie {
     private String imageUrl;
     @Column(updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
     @Type(type = "uuid-char")
-    private UUID uuid;
+    private UUID uuid;    
+    @ManyToOne
+    @JoinColumn(name="lista_id", referencedColumnName = "id")
+    private MinhaLista lista;
+
 
     public Long getId() {
         return this.id;
@@ -92,5 +96,15 @@ public class Movie {
     public void setUuid(UUID uuid) {
         this.uuid = uuid;
     }
+
+    public MinhaLista getLista() {
+        return lista;
+    }
+
+    public void setLista(MinhaLista lista) {
+        this.lista = lista;
+    }
+
+    
 
 }
