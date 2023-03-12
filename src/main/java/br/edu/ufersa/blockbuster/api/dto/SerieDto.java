@@ -8,7 +8,6 @@ import br.edu.ufersa.blockbuster.domain.entity.AdvisoryRating;
 import br.edu.ufersa.blockbuster.domain.entity.Gender;
 
 public class SerieDto {
-    private Long id;
     private String title;
     private LocalDate releaseDate;
     private Gender gender;
@@ -16,14 +15,6 @@ public class SerieDto {
     private String imageUrl;
     private List<SeasonDto> seasons;
     private UUID uuid;
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getTitle() {
         return title;

@@ -6,6 +6,7 @@ import java.util.UUID;
 public class UserDto {
     private String email;
     private LocalDate nascimento;
+    private MinhaListaDto lista;
     private UUID uuid;
 
     public String getEmail() {
@@ -30,6 +31,14 @@ public class UserDto {
 
     public void setUuid(UUID uuid) {
         this.uuid = uuid;
+    }
+
+    public MinhaListaDto getLista() {
+        return this.lista;
+    }
+
+    public void setLista(MinhaListaDto lista) {
+        this.lista = lista;
     }
 
 }
