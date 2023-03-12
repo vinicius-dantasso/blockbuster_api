@@ -4,6 +4,7 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -27,10 +28,10 @@ public class Movie {
     private String imageUrl;
     @Column(updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
     @Type(type = "uuid-char")
-    private UUID uuid;    
-    @ManyToOne
-    @JoinColumn(name="lista_id", referencedColumnName = "id")
-    private MinhaLista lista;
+    private UUID uuid;
+
+    @ManyToMany(mappedBy = "movie")
+    private List<MinhaLista> lista;
 
 
     public Long getId() {
@@ -97,11 +98,11 @@ public class Movie {
         this.uuid = uuid;
     }
 
-    public MinhaLista getLista() {
+    public List<MinhaLista> getLista() {
         return lista;
     }
 
-    public void setLista(MinhaLista lista) {
+    public void setLista(List<MinhaLista> lista) {
         this.lista = lista;
     }
 

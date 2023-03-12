@@ -12,8 +12,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -52,9 +51,8 @@ public class Serie {
   @OneToMany(mappedBy = "serie", cascade = CascadeType.ALL)
   private List<Season> seasons;
 
-  @ManyToOne
-  @JoinColumn(name="lista_id", referencedColumnName = "id")
-  private MinhaLista lista;
+  @ManyToMany(mappedBy = "serie")
+  private List<MinhaLista> lista;
 
   public long getId() {
     return id;
@@ -104,10 +102,10 @@ public class Serie {
   public void setSeasons(List<Season> seasons) {
     this.seasons = seasons;
   }
-  public MinhaLista getLista() {
+  public List<MinhaLista> getLista() {
     return lista;
   }
-  public void setLista(MinhaLista lista) {
+  public void setLista(List<MinhaLista> lista) {
     this.lista = lista;
   }
 
