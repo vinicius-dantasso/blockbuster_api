@@ -24,6 +24,11 @@ public class MovieService {
         return movie;
     }
 
+    public Movie getByTitle(String title){
+        Movie movie = rep.findByTitle(title);
+        return movie;
+    }
+
     public Movie createMovie(Movie movie){
         movie.setUuid(UUID.randomUUID());
         rep.save(movie);

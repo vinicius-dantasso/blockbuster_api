@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.edu.ufersa.blockbuster.api.dto.CreateUserDto;
+import br.edu.ufersa.blockbuster.api.dto.MinhaListaAddMovie;
+import br.edu.ufersa.blockbuster.api.dto.MinhaListaAddSerie;
 import br.edu.ufersa.blockbuster.api.dto.UpdateUserDto;
 import br.edu.ufersa.blockbuster.api.dto.UserDto;
 import br.edu.ufersa.blockbuster.domain.entity.User;
@@ -91,6 +93,26 @@ public class UserController {
 		else {
 			return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	}
+
+	@PatchMapping("/my_list/movies")
+	public ResponseEntity<UserDto> inserirMovie(@Valid @RequestBody MinhaListaAddMovie dto){
+		User user = service.updateMovieList(mapper.map(dto, User.class));
+		UserDto atualizado = mapper.map(user, UserDto.class);
+		if(atualizado!=null){
+			return new ResponseEntity<>(atualizado,HttpStatus.OK);
+		}
+		return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
+	@PatchMapping("/my_list/series")
+	public ResponseEntity<UserDto> inserirSerie(@Valid @RequestBody MinhaListaAddSerie dto){
+		User user = service.updateSerieList(mapper.map(dto, User.class));
+		UserDto atualizado = mapper.map(user, UserDto.class);
+		if(atualizado!=null){
+			return new ResponseEntity<>(atualizado,HttpStatus.OK);
+		}
+		return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	@DeleteMapping("/{userId}")

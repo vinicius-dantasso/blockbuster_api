@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import br.edu.ufersa.blockbuster.domain.entity.MinhaLista;
 import br.edu.ufersa.blockbuster.domain.entity.User;
 import br.edu.ufersa.blockbuster.domain.repoitory.UserRepository;
 
@@ -14,6 +15,8 @@ import br.edu.ufersa.blockbuster.domain.repoitory.UserRepository;
 public class UserService {
     @Autowired
 	private UserRepository rep;
+	@Autowired
+	private MinhaListaService minhaListaService;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
@@ -30,6 +33,9 @@ public class UserService {
 	public User createUser(User user) {
 		user.setUuid(UUID.randomUUID());
 		user.setSenha(passwordEncoder.encode(user.getSenha()));
+		user = rep.save(user);
+		MinhaLista lista = minhaListaService.create(user);
+		user.setMinhaLista(lista);
 		rep.save(user);
 		return user;
 	}
@@ -53,6 +59,24 @@ public class UserService {
 	public User updateUserPatch(User user) {
 		User dataUser = rep.findByEmail(user.getEmail());
 		dataUser.setSenha(user.getSenha());
+		rep.save(dataUser);
+		return dataUser;
+	}
+
+	public User updateMovieList(User user){
+		User dataUser = rep.findByEmail(user.getEmail());
+		dataUser.setMovieTitle(user.getMovieTitle());
+		MinhaLista lista = minhaListaService.addMovie(dataUser);
+		dataUser.setMinhaLista(lista);
+		rep.save(dataUser);
+		return dataUser;
+	}
+
+	public User updateSerieList(User user){
+		User dataUser = rep.findByEmail(user.getEmail());
+		dataUser.setSerieTitle(user.getSerieTitle());
+		MinhaLista lista = minhaListaService.addSerie(dataUser);
+		dataUser.setMinhaLista(lista);
 		rep.save(dataUser);
 		return dataUser;
 	}
