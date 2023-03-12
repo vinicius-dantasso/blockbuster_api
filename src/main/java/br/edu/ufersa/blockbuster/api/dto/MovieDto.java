@@ -14,6 +14,7 @@ public class MovieDto {
     private AdvisoryRating advisoryRating;
     private String imageUrl;
     private UUID uuid;
+    private Double price;
 
     public String getTitle() {
         return title;
@@ -70,4 +71,14 @@ public class MovieDto {
     public void setUuid(UUID uuid) {
         this.uuid = uuid;
     }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    
 }

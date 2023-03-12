@@ -42,6 +42,7 @@ public class MovieService {
         dataMovie.setGender(movie.getGender());
         dataMovie.setAdvisoryRating(movie.getAdvisoryRating());
         dataMovie.setReleaseDate(movie.getReleaseDate());
+        dataMovie.setPrice(movie.getPrice());
         rep.save(dataMovie);
         return dataMovie;
     }

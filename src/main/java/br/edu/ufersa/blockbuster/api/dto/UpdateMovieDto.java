@@ -23,6 +23,8 @@ public class UpdateMovieDto {
     @NotNull(message = "A URL da imagem não pode ser null")
     private String imageUrl;
     private UUID uuid;
+    @NotNull(message = "O Preço não pose ser null")
+    private Double price;
 
     public String getTitle() {
         return this.title;
@@ -79,5 +81,15 @@ public class UpdateMovieDto {
     public void setUuid(UUID uuid) {
         this.uuid = uuid;
     }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    
     
 }
