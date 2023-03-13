@@ -33,6 +33,9 @@ public class Movie {
     @ManyToMany(mappedBy = "movie")
     private List<MinhaLista> lista;
 
+    @Column(nullable = false)
+    private Double price;
+
 
     public Long getId() {
         return this.id;
@@ -104,6 +107,14 @@ public class Movie {
 
     public void setLista(List<MinhaLista> lista) {
         this.lista = lista;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
     

@@ -16,6 +16,7 @@ public class SerieDto {
     private String imageUrl;
     private List<SeasonDto> seasons;
     private UUID uuid;
+    private Double price;
 
     public Long getId() {
         return this.id;
@@ -81,4 +82,13 @@ public class SerieDto {
         this.seasons = seasons;
     }
 
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    
 }

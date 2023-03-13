@@ -21,6 +21,8 @@ public class MovieFormDto {
     private AdvisoryRating advisoryRating;
     @NotNull(message = "A URL da imagem não pode ser null")
     private String imageUrl;
+    @NotNull(message = "Preço não pode ser null")
+    private Double price;
 
     public String getTitle() {
         return title;
@@ -69,4 +71,14 @@ public class MovieFormDto {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    
 }

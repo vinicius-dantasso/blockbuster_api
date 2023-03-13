@@ -54,6 +54,9 @@ public class Serie {
   @ManyToMany(mappedBy = "serie")
   private List<MinhaLista> lista;
 
+  @Column(nullable = false)
+  private Double price;
+
   public long getId() {
     return id;
   }
@@ -107,6 +110,12 @@ public class Serie {
   }
   public void setLista(List<MinhaLista> lista) {
     this.lista = lista;
+  }
+  public Double getPrice() {
+    return price;
+  }
+  public void setPrice(Double price) {
+    this.price = price;
   }
 
   
