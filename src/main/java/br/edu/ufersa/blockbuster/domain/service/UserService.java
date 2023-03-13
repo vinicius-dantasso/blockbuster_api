@@ -33,7 +33,7 @@ public class UserService {
 	public User createUser(User user) {
 		user.setUuid(UUID.randomUUID());
 		user.setSenha(passwordEncoder.encode(user.getSenha()));
-		rep.save(user);
+		user = rep.save(user);
 		MinhaLista lista = minhaListaService.create(user);
 		user.setLista(lista);
 		rep.save(user);

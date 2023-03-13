@@ -25,6 +25,8 @@ public class SerieFormDto {
     private String imageUrl;
     @NotNull(message = "A serie deve ter pelo menos 1 season")
     private List<Season> seasons;
+    @NotNull(message = "Preço não pode ser null")
+    private Double price;
 
     public String getTitle() {
         return title;
@@ -73,4 +75,14 @@ public class SerieFormDto {
     public void setSeasons(List<Season> seasons) {
         this.seasons = seasons;
     }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    
 }

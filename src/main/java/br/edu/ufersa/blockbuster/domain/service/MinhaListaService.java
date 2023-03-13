@@ -29,26 +29,25 @@ public class MinhaListaService {
     public MinhaLista create(User user){
         MinhaLista lista = new MinhaLista();
         lista.setUser(user);
-        repository.save(lista);
+        lista = repository.save(lista);
         return lista;
     }
 
     public MinhaLista addMovie(User user){
-        MinhaLista lista = repository.findByUser(user);
+        MinhaLista lista = user.getLista();
         List<String> titles = user.getMovieTitle();
         List<Movie> movies = lista.getMovie();
 
         for(int i=0;i<titles.size();i++){
             movies.add(movieService.getByTitle(titles.get(i)));
         }
-
         lista.setMovie(movies);
         repository.save(lista);
         return lista;
     }
 
     public MinhaLista addSerie(User user){
-        MinhaLista lista = repository.findByUser(user);
+        MinhaLista lista = user.getLista();
         List<String> titles = user.getSerieTitle();
         List<Serie> series = lista.getSerie();
 

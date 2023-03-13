@@ -13,6 +13,8 @@ public class UpdateSerieDto {
     @NotNull(message = "A serie deve conter seasons")
     private List<Season> seasons;
     private UUID uuid;
+    @NotNull(message = "O preço não pode ser null")
+    private Double price;
 
     public String getImageUrl() {
         return imageUrl;
@@ -38,4 +40,13 @@ public class UpdateSerieDto {
         this.uuid = uuid;
     }
 
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    
 }
