@@ -6,3 +6,29 @@ Blockbuster is a project developed for the Web Development discipline of the Com
 # Installation
 1. Clone the repository
 2. Set the mysql database username and password in the application.properties file
+
+# Routes
+## Movies
+- GET - /api/movies 
+- GET - /api/movies/{uuid}
+- POST - /api/movies
+- PUT - /api/movies
+- DELETE - /api/movies/{uuid}
+
+## Series
+- GET - /api/series
+- GET - /api/series/get_By_Id/{id}
+- POST - /api/series
+- GET - /api/series/get_By_Title/{title}
+- PUT - /api/series
+- DELETE - /api/series/{uuid}
+
+## Users
+- GET - /api/user
+- GET - /api/user/{userId}
+- POST - /api/user
+- PUT - /api/user
+- PATCH - /api/user
+- DELETE - /api/user/{userId}
+- PATCH - /api/my_list/movies
+- PATCH - /api/my_list/series
