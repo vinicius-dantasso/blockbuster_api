@@ -44,6 +44,7 @@ public class SecurityConfig {
       .csrf().disable().authorizeHttpRequests()
       .antMatchers(HttpMethod.POST, "/api/login").permitAll()
       .antMatchers(HttpMethod.POST, "/api/user").permitAll()
+      .antMatchers( "/api/images/**").permitAll()
       .anyRequest().authenticated().and()
       .addFilterBefore(new LoginFilter("/api/login", authenticationManager), UsernamePasswordAuthenticationFilter.class)
       .addFilterBefore(new AuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
