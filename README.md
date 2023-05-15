@@ -32,3 +32,7 @@ Blockbuster is a project developed for the Web Development discipline of the Com
 - DELETE - /api/user/{userId}
 - PATCH - /api/my_list/movies
 - PATCH - /api/my_list/series
+
+# Uploads
+- POST - /api/images/upload
+- GET - /api/images/{filename}
