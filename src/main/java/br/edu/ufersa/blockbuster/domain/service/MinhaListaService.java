@@ -19,6 +19,8 @@ public class MinhaListaService {
     private MovieService movieService;
     @Autowired
     private SerieService serieService;
+    @Autowired
+    private UserService userService;
 
     public List <MinhaLista> getAll(){
         List <MinhaLista> minhaLista = repository.findAll();
@@ -76,6 +78,46 @@ public class MinhaListaService {
         lista.setSerie(series);
         repository.save(lista);
         return lista;
+    }
+
+    public void deleteMovieFromList(Movie movie){
+        List<User> users = userService.getAll();
+        Movie movieToRemove = movie;
+
+        for(int i=0;i<users.size();i++){
+            User user = users.get(i);
+            MinhaLista list = user.getLista();
+            List<Movie> movies = list.getMovie();
+
+            for(int j=0;j<movies.size();j++){
+                if(movieToRemove.getTitle().equals(movies.get(j).getTitle())){
+                    movies.remove(j);
+                }
+            }
+
+            list.setMovie(movies);
+            repository.save(list);
+        }
+    }
+
+    public void deleteSerieFromList(Serie serie){
+        List<User> users = userService.getAll();
+        Serie serieToRemove = serie;
+
+        for(int i=0;i<users.size();i++){
+            User user = users.get(i);
+            MinhaLista lista = user.getLista();
+            List<Serie> series = lista.getSerie();
+
+            for(int j=0;j<series.size();j++){
+                if(serieToRemove.getTitle().equals(series.get(j).getTitle())){
+                    series.remove(j);
+                }
+            }
+
+            lista.setSerie(series);
+            repository.save(lista);
+        }
     }
     
 }

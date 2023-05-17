@@ -13,6 +13,8 @@ import java.util.UUID;
 public class MovieService {
     @Autowired
     private MovieRepository rep;
+    @Autowired
+    private MinhaListaService myListService;
 
     public List<Movie> getAll(){
         List<Movie> movies = rep.findAll();
@@ -49,6 +51,7 @@ public class MovieService {
 
     public String deleteMovie(UUID id){
         Movie dataMovie = rep.findByUuid(id);
+        myListService.deleteMovieFromList(dataMovie);
         if(dataMovie!=null){
             rep.delete(dataMovie);
             return "ok";

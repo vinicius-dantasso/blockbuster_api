@@ -21,6 +21,8 @@ public class SerieService {
   private SeasonService seasonService;
   @Autowired
   private EpisodeService episodeService;
+  @Autowired
+  private MinhaListaService myListService;
 
   public Serie create(Serie serie) {
 
@@ -85,7 +87,7 @@ public class SerieService {
 
   public String delete(UUID uuid) {
     Serie serie = serieRepository.findByUuid(uuid);
-
+    myListService.deleteSerieFromList(serie);
     if(serie!=null){
       seasonService.delete(serie);
       serieRepository.delete(serie);
