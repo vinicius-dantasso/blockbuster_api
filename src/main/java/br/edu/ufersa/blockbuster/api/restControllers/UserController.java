@@ -127,7 +127,7 @@ public class UserController {
 	}
 	
 	@DeleteMapping("/{userId}")
-	public ResponseEntity<UUID> deletar(@PathVariable UUID userId){
+	public ResponseEntity<String> deletar(@PathVariable String userId){
 		String teste = service.deleteUser(userId);
 		
 		if(teste.equals("ok")) {

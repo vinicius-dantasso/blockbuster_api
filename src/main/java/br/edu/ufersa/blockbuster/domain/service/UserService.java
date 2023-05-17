@@ -52,8 +52,8 @@ public class UserService {
 		return dataUser;
 	}
 	
-	public String deleteUser(UUID uuid) {
-		User dataUser = rep.findByUuid(uuid);
+	public String deleteUser(String email) {
+		User dataUser = rep.findByEmail(email);
 		if(dataUser!=null) {
 			rep.delete(dataUser);
 			return "ok";

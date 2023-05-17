@@ -37,9 +37,18 @@ public class MinhaListaService {
         MinhaLista lista = user.getLista();
         List<String> titles = user.getMovieTitle();
         List<Movie> movies = lista.getMovie();
+        boolean canAdd = true;
 
         for(int i=0;i<titles.size();i++){
-            movies.add(movieService.getByTitle(titles.get(i)));
+            for(int j=0; j<movies.size();j++){
+                if(titles.get(i).equals(movies.get(j).getTitle())){
+                    canAdd = false;
+                }
+            }
+            if(canAdd){
+                movies.add(movieService.getByTitle(titles.get(i)));
+            }
+            canAdd = true;
         }
         lista.setMovie(movies);
         repository.save(lista);
@@ -50,9 +59,18 @@ public class MinhaListaService {
         MinhaLista lista = user.getLista();
         List<String> titles = user.getSerieTitle();
         List<Serie> series = lista.getSerie();
+        boolean canAdd = true;
 
         for(int i=0;i<titles.size();i++){
-            series.add(serieService.getByTitle(titles.get(i)));
+            for(int j=0;j<series.size();j++){
+                if(titles.get(i).equals(series.get(i).getTitle())){
+                    canAdd = false;
+                }
+            }
+            if(canAdd){
+                series.add(serieService.getByTitle(titles.get(i)));
+            }
+            canAdd = true;
         }
 
         lista.setSerie(series);
