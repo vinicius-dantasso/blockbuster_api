@@ -55,6 +55,17 @@ public class UserController {
 			return ResponseEntity.notFound().build();
 		}
 	}
+
+	@GetMapping ("/email/{userEmail}")
+	public ResponseEntity<UserDto> buscar(@PathVariable String userEmail){
+		UserDto dto = mapper.map(service.getByEmail(userEmail), UserDto.class);
+		if(dto != null) {
+			return new ResponseEntity<>(dto, HttpStatus.OK);
+		}
+		else {
+			return ResponseEntity.notFound().build();
+		}
+	}
 	
 	@PostMapping
 	public ResponseEntity<UserDto> criar(@Valid @RequestBody CreateUserDto dto){

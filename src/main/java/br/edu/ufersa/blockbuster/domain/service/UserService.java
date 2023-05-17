@@ -29,6 +29,11 @@ public class UserService {
 		User user = rep.findByUuid(id);
 		return user;
 	}
+
+	public User getByEmail(String email){
+		User user = rep.findByEmail(email);
+		return user;
+	}
 	
 	public User createUser(User user) {
 		user.setUuid(UUID.randomUUID());
