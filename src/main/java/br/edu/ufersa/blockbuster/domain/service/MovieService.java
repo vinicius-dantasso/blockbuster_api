@@ -43,6 +43,7 @@ public class MovieService {
         dataMovie.setDuration(movie.getDuration());
         dataMovie.setGender(movie.getGender());
         dataMovie.setAdvisoryRating(movie.getAdvisoryRating());
+        dataMovie.setImageUrl(movie.getImageUrl());
         dataMovie.setReleaseDate(movie.getReleaseDate());
         dataMovie.setPrice(movie.getPrice());
         rep.save(dataMovie);
