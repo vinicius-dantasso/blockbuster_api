@@ -64,6 +64,12 @@ public class SerieService {
     //Série salva no banco de dados
     Serie savedSerie = serieRepository.findByUuid(serie.getUuid());
 
+    savedSerie.setTitle(serie.getTitle());
+    savedSerie.setImageUrl(serie.getImageUrl());
+    savedSerie.setGender(serie.getGender());
+    savedSerie.setAdvisoryRating(serie.getAdvisoryRating());
+    savedSerie.setPrice(serie.getPrice());
+
     //Lista das novas temporadas que serão adicionadas
     List<Season> newSeasons = serie.getSeasons();
     for(int i=0;i<newSeasons.size();i++){
